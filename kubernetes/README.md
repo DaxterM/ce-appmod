@@ -13,3 +13,4 @@ gcloud container clusters create $cluster_name --zone $zone --no-enable-basic-au
 Once the cluster is created, this section contains additional documentation to go through;
 
 - [RBAC](./rbac/README.md)
+- [Open Policy Agent](./opa/README.md)
