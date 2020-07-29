@@ -22,6 +22,15 @@ kubectl apply -f kubernetes/opa/gatekeeper_policies/registry_validation_template
 kubectl apply -f kubernetes/opa/gatekeeper_policies/registry_validation_constrain.yaml
 ```
 
+#### Require all namespaces to have `owner` label
+
+Deploy gatekeeper policy that requires all namespaces to have an `owner` label
+
+```sh
+kubectl apply -f kubernetes/opa/gatekeeper_policies/require_namespacelabel_template.yaml
+kubectl apply -f kubernetes/opa/gatekeeper_policies/require_namespacelabel_constrain.yaml
+```
+
 ## Mutating Policies
 
 ### Deploy Open Policy Agent (Old Version)
