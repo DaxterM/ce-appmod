@@ -1,11 +1,11 @@
 kind: ClusterRoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
-  name: example-users
+  name: humanresources-users-clusterview
 subjects:
   - kind: ServiceAccount
-    name: example-user01
-    namespace: example
+    name: humanresources-user
+    namespace: humanresources
 roleRef:
   kind: ClusterRole
   name: view 

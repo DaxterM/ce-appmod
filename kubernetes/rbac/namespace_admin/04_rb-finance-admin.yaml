@@ -1,12 +1,12 @@
 kind: RoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
-  name: example-admin
-  namespace: example
+  name: finance-admin
+  namespace: finance
 subjects:
   - kind: ServiceAccount 
-    name: example-user01
+    name: finance-user
 roleRef:
   kind: Role
-  name: namespace-admin
+  name: finance-admin
   apiGroup: rbac.authorization.k8s.io

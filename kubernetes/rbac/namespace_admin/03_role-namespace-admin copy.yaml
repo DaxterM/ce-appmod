@@ -1,8 +1,8 @@
 kind: Role
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
-  name: namespace-admin
-  namespace: example
+  name: finance-admin
+  namespace: finance
 rules:
   - apiGroups: ["*"]
     resources: ["*"]
