@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ResourceQuota
+metadata:
+  name: limit-memory
+spec:
+  hard:
+    requests.memory: 1Gi
