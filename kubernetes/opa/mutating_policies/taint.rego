@@ -26,60 +26,65 @@ response = {
 # If you need to define ordering across patches, generate them inside the same rule.
 patch[[
     {
-        "op": "replace",
-        "path": "/spec/dnsPolicy",
-        "value": "None",
-    }
+            "op": "add",
+            "path": "/spec/tolerations",
+            "value": [
+                {
+                    "key": "team",
+                    "value": "finance",
+                    "effect": "NoExecute"
+                }
+            ]
+        },
+        {
+            "op": "add",
+            "path": "/spec/nodeSelector",
+            "value": {"team": "finance"}
+
+        }
+
+    
 ]] {
     
     # Only apply mutations to objects in create/update operations (not
     # delete/connect operations.)
     is_create_or_update
 
-    # If the resource has the "test-mutation" annotation key, the patch will be
-    # generated and applied to the resource.
-    input.request.kind.kind = "Pod"
-    input.request.namespace != "kube-system"
+    input.request.namespace = "finance"
+    input.request.kind.kind == "Pod"
 }
 
 patch[[
     {
-        "op": "add",
-        "path": "/spec/dnsConfig",
-        "value": {},
-    }
+            "op": "add",
+            "path": "/spec/tolerations",
+            "value": [
+                {
+                    "key": "team",
+                    "value": "humanresources",
+                    "effect": "NoExecute"
+                }
+            ]
+        },
+        {
+            "op": "add",
+            "path": "/spec/nodeSelector",
+            "value": {"team": "humanresources"}
+
+        }
+
+
 ]] {
     
     # Only apply mutations to objects in create/update operations (not
     # delete/connect operations.)
     is_create_or_update
 
-    # If the resource has the "test-mutation" annotation key, the patch will be
-    # generated and applied to the resource.
-    input.request.kind.kind = "Pod"
-    input.request.metadata.namespace != "kube-system"
-}
-
-patch[[
-    {
-        "op": "add",
-        "path": "/spec/dnsConfig/nameservers",
-        "value": ["10.63.251.162"],
-    }
-]] {
-    
-    # Only apply mutations to objects in create/update operations (not
-    # delete/connect operations.)
-    is_create_or_update
-
-    # If the resource has the "test-mutation" annotation key, the patch will be
-    # generated and applied to the resource.
-    input.request.kind.kind = "Pod"
-    input.request.metadata.namespace != "kube-system"
+    input.request.namespace = "humanresources"
+    input.request.kind.kind == "Pod"
 }
 
 is_create_or_update { is_create }
 is_create_or_update { is_update }
 is_create { input.request.operation == "CREATE" }
 is_update { input.request.operation == "UPDATE" }
-
