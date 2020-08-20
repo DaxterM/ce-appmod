@@ -1,1 +1,2 @@
 example-user01-kubeconfig
+*.kubeconfig

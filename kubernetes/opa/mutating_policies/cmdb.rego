@@ -46,7 +46,6 @@ patch[[
 
         }
 
-  # {\"op\":\"add\",\"path\":\"/spec/containers/0/env/-\",\"value\":{\"name\":\"POD_NAME\",\"valueFrom\":{\"fieldRef\":{\"fieldPath\":\"metadata.name\"}}}}]
 ]] {
     
     # Only apply mutations to objects in create/update operations (not
