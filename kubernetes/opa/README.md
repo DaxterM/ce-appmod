@@ -106,7 +106,21 @@ Deploy webhook-configuration.yaml
 kubectl -n opa apply -f webhook-configuration.yaml
 ```
 
-### Deploy Admission policy
+### Deploy Mutating Admission policy
+
+OPA uses the old way of deploying the rego policies i.e. by deploying a configmap from rego file into the OPA namespace.
+
+Deploy a mutating policy and test;
+
+```sh
+kubectl -n opa create configmap cmdb --from-file=./kubernetes/opa/mutating_policies/cmdb.rego
+```
+
+If you deploy an nginx pod, you should see it mutated
+```sh
+kubectl run nginx --image=nginx ; \
+  kubectl get pods nginx -o json | jq '.spec.containers[].env'
+```
 
 #### Deploy a test policy
 
