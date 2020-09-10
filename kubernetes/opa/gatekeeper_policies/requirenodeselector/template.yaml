@@ -1,0 +1,50 @@
+apiVersion: templates.gatekeeper.sh/v1beta1
+kind: ConstraintTemplate
+metadata:
+  name: k8srequirednodeselectors
+spec:
+  crd:
+    spec:
+      names:
+        kind: K8sRequiredNodeSelectors
+      validation:
+        # Schema for the `parameters` field
+        openAPIV3Schema:
+          properties:
+            message:
+              type: string
+            labels:
+              type: array
+              items:
+                type: object
+                properties:
+                  key:
+                    type: string
+                  allowedRegex:
+                    type: string
+  targets:
+    - target: admission.k8s.gatekeeper.sh
+      rego: |
+        package k8srequirednodeselect
+
+        namespace := input.review.object.metadata.namespace
+        
+        violation[{"msg": msg}] { 
+          input.review.object.kind = "Pod"
+          ns := input.review.object.metadata.namespace
+          selectors := input.parameters.namespaceselector
+          result := object.get(selectors, ns, "")
+          input.review.object.spec.nodeSelector["nodepool"] != input.parameters.namespaceselector[namespace]
+          msg := sprintf("container has an invalid `nodeselector` : %v ",  [input.review.object.spec.nodeSelector["nodepool"] ])
+        }
+        
+        violation[{"msg": msg}] { 
+          input.review.object.kind = "Pod"
+          not(input.review.object.spec.nodeSelector)
+          ns := input.review.object.metadata.namespace
+          selectors := input.parameters.namespaceselector
+          result := object.get(selectors, ns, "")
+          result != ""
+          msg := "container has an empty nodeselector"
+        }
+        

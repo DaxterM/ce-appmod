@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: example-nodeselector-pass
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    run: nginx
+  name: nginx
+  namespace: example-nodeselector-pass
+spec:
+  containers:
+  - image: nginx
+    name: nginx
+  nodeSelector:
+    nodepool: team1

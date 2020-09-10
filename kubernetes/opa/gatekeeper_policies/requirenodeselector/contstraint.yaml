@@ -1,0 +1,15 @@
+apiVersion: constraints.gatekeeper.sh/v1beta1
+kind: K8sRequiredNodeSelectors
+metadata:
+  name: all-must-have-nodeselector
+spec:
+  match:
+    kinds:
+      - apiGroups: [""]
+        kinds: ["Pod"]
+  parameters:
+    message: "All Pods in this namespace must have a `NodeSelector` property attached"
+    namespaceselector: 
+        example-nodeselector-fail-team: "team1"
+        example-nodeselector-pass: "team1"
+        example-nodeselector-fail-empty: "team1"
