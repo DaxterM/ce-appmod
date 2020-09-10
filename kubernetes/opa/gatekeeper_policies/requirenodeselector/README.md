@@ -18,3 +18,10 @@ nodepool: team1
 ```
 
 The key `nodepool` is static and hardcoded in the `template.yaml` file
+
+To get started modify the `constraint.yaml` file, then deploy it along with the template
+
+```sh
+kubectl apply -f template.yaml
+kubectl apply -f contstraint.yaml
+```
